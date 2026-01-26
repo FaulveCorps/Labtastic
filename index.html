@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labtastic - Element Combiner</title>
+  <link rel="icon" type="image/x-icon" href="media/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="openingAnimation">
+    <img src="media/LabTasticV2.png" alt="Labtastic Logo" class="logo" />
+    <h1>Loading...</h1>
+  </div>
+  <header>
+    <img src="media/LabTasticV2.png" alt="Labtastic Logo" id="logo" />
+    <nav></nav>
+    <div class="quote-carousel">
+      <p id="quoteText">"Science is simply common sense at its best."</p>
+      <span id="quoteAuthor">Thomas Huxley</span>
+    </div>
+  </header>
+
+  <nav class="quick-nav" aria-label="Quick navigation">
+    <a href="#elements">Elements</a>
+    <a href="#workspace">Combine</a>
+  </nav>
+
+  <div id="tutorialOverlay" class="tutorial-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="tutorialTitle">
+    <div class="tutorial-card" role="document">
+      <h2 id="tutorialTitle">How to Use the Periodic Table</h2>
+      <p>Follow these quick steps to start discovering new elements:</p>
+      <ol>
+        <li>Drag or tap elements to add them to the Combine Area.</li>
+        <li>Combine two or more elements to discover new ones.</li>
+        <li>Hover an unlocked element to see details.</li>
+        <li>Use search and filters to find elements faster.</li>
+      </ol>
+      <button id="closeTutorialBtn" type="button">Got it!</button>
+    </div>
+  </div>
+
+  <main>
+    <section id="elements">
+      <h2>Elements</h2>
+      <div id="elementsContainer">
+        <div class="elements-toolbar" aria-label="Element filters">
+          <div class="filter-row">
+            <input id="elementSearch" type="search" placeholder="Search by name or symbol" aria-label="Search elements" autocomplete="off" />
+            <select id="blockFilter" aria-label="Filter by block">
+              <option value="all">All blocks</option>
+              <option value="s">S-block</option>
+              <option value="p">P-block</option>
+              <option value="d">D-block</option>
+              <option value="f">F-block</option>
+              <option value="none">Compounds</option>
+            </select>
+            <label class="toggle">
+              <input type="checkbox" id="showUnlocked" checked />
+              <span>Unlocked</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" id="showLocked" checked />
+              <span>Locked</span>
+            </label>
+            <button id="clearFiltersBtn" class="ghost-btn" type="button">Clear</button>
+          </div>
+          <div class="status-row" aria-live="polite">
+            <span id="matchCount">Showing 0 / 0</span>
+            <span id="progressCount">Unlocked 0 / 0</span>
+            <button id="shortcutHelpBtn" class="ghost-btn" type="button">Shortcuts</button>
+            <button id="tutorialBtn" class="ghost-btn" type="button">Tutorial</button>
+          </div>
+          <div id="shortcutHelp" class="helper-panel" hidden>
+            <strong>Keyboard shortcuts</strong>
+            <ul>
+              <li><kbd>Enter</kbd> Combine elements</li>
+              <li><kbd>R</kbd> Reset progress</li>
+              <li><kbd>F</kbd> Focus search</li>
+              <li><kbd>Esc</kbd> Clear search</li>
+            </ul>
+          </div>
+        </div>
+        <div id="periodicGrid"></div>
+      </div>
+
+    </section>
+
+    <section id="workspace">
+      <h2>Combine Area</h2>
+      <div id="dropZone">Drop or tap elements here</div>
+      <div id="infoBox"></div>
+      <center>
+        <button id="combineBtn">Combine</button>
+      </center>
+      <button onclick="resetProgress()">Reset Progress</button>
+      <button id="revealAllBtn">Reveal All Elements</button>
+      <div class="history-panel" aria-label="Combination history">
+        <div class="history-header">
+          <h3>Combination History</h3>
+          <button id="clearHistoryBtn" class="ghost-btn" type="button">Clear</button>
+        </div>
+        <ul id="historyList" aria-live="polite"></ul>
+      </div>
+    </section>
+  </main>
+
+  
+  <script src="media/elements-data.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
