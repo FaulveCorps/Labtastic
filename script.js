@@ -1,13 +1,10 @@
 
   const QUOTES = [
-    { text: "Science is simply common sense at its best.", author: "Thomas Huxley" },
-    { text: "The important thing is not to stop questioning.", author: "Albert Einstein" },
-    { text: "Somewhere, something incredible is waiting to be known.", author: "Carl Sagan" },
-    { text: "Research is formalized curiosity.", author: "Zora Neale Hurston" },
-    { text: "What we know is a drop, what we don't know is an ocean.", author: "Isaac Newton" },
-    { text: "Every brilliant experiment, like every great work of art, starts with an act of imagination.", author: "Jonah Lehrer" },
-    { text: "Science is organized knowledge.", author: "Herbert Spencer" },
-    { text: "Experiment is the sole judge of scientific truth.", author: "Richard Feynman" }
+    { text: "Start with the unlocked elements to discover your first compounds.", label: "Labtastic tip" },
+    { text: "Use search and block filters to narrow the table before you combine.", label: "Labtastic tip" },
+    { text: "Try combining unlocked compounds with base elements to reveal longer reaction chains.", label: "Labtastic tip" },
+    { text: "Combination history helps you retrace successful reactions and failed experiments.", label: "Labtastic tip" },
+    { text: "Tap elements on touch devices or drag them on desktop to fill the combine area.", label: "Labtastic tip" }
   ];
 
   let elements = [];
@@ -28,19 +25,6 @@
     showUnlocked: true,
     showLocked: true
   };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    // Fade out splash after 2s
-    setTimeout(() => {
-      const opening = document.getElementById("openingAnimation");
-      if(opening){
-        opening.classList.add("hidden");
-        // Remove after transition ends
-        opening.addEventListener("transitionend", () => opening.remove());
-      }
-    }, 2500);
-  });
-
 
   function showInfo(el) {
     const e = elements.find(x => x.name === el.dataset.name);
@@ -152,9 +136,9 @@
 
     let index = 0;
     const applyQuote = () => {
-      const { text, author } = QUOTES[index];
+      const { text, label } = QUOTES[index];
       quoteText.textContent = `"${text}"`;
-      quoteAuthor.textContent = author;
+      quoteAuthor.textContent = label;
       index = (index + 1) % QUOTES.length;
     };
 
@@ -481,37 +465,6 @@
 
       dropBuffer = [];
   }
-
-
-
-  function spawnParticles(dropZone, type = "success", elementCount = 2) {
-      const dzRect = dropZone.getBoundingClientRect();
-      // Base particle count, scale with number of elements
-      const count = 50 + (elementCount - 2) * 30; // 10 for 2 elements, +5 for each extra
-      for (let i = 0; i < count; i++) {
-          const p = document.createElement("div");
-          p.className = `particle ${type}`;
-
-          // Random X/Y movement
-          const x = (Math.random() - 0.9) * 50 * elementCount; // scale distance by elementCount
-          const y = (Math.random() - 0.9) * 50 * elementCount;
-
-          p.style.setProperty("--x", `${x}px`);
-          p.style.setProperty("--y", `${y}px`);
-
-          // Position at center
-          p.style.left = `${dzRect.width / 2}px`;
-          p.style.top = `${dzRect.height / 2}px`;
-
-          // Animate
-          p.style.animation = `flyParticle 0.8s ease forwards`;
-          dropZone.appendChild(p);
-
-          // Remove after animation
-          setTimeout(() => p.remove(), 800);
-      }
-  }
-
   function loadHistory() {
     const saved = localStorage.getItem(HISTORY_KEY);
     if (!saved) return;
@@ -580,7 +533,12 @@
 
 
   document.addEventListener("DOMContentLoaded",()=>{
-    setTimeout(()=>{ const ov=document.getElementById("openingAnimation"); if(ov) {ov.style.opacity=0; setTimeout(()=>ov.remove(),600); }},2000);
+    setTimeout(() => {
+      const opening = document.getElementById("openingAnimation");
+      if (!opening) return;
+      opening.classList.add("hidden");
+      opening.addEventListener("transitionend", () => opening.remove(), { once: true });
+    }, 2500);
     initQuoteCarousel();
     loadFilterState();
     syncFilterControls();
