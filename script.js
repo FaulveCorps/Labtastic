@@ -1,10 +1,11 @@
 
+  const QUOTE_LABEL = "Labtastic tip";
   const QUOTES = [
-    { text: "Start with the unlocked elements to discover your first compounds.", label: "Labtastic tip" },
-    { text: "Use search and block filters to narrow the table before you combine.", label: "Labtastic tip" },
-    { text: "Try combining unlocked compounds with base elements to reveal longer reaction chains.", label: "Labtastic tip" },
-    { text: "Combination history helps you retrace successful reactions and failed experiments.", label: "Labtastic tip" },
-    { text: "Tap elements on touch devices or drag them on desktop to fill the combine area.", label: "Labtastic tip" }
+    "Start with the unlocked elements to discover your first compounds.",
+    "Use search and block filters to narrow the table before you combine.",
+    "Try combining unlocked compounds with base elements to reveal longer reaction chains.",
+    "Combination history helps you retrace successful reactions and failed experiments.",
+    "Tap elements on touch devices or drag them on desktop to fill the combine area."
   ];
 
   let elements = [];
@@ -136,9 +137,9 @@
 
     let index = 0;
     const applyQuote = () => {
-      const { text, label } = QUOTES[index];
+      const text = QUOTES[index];
       quoteText.textContent = `"${text}"`;
-      quoteAuthor.textContent = label;
+      quoteAuthor.textContent = QUOTE_LABEL;
       index = (index + 1) % QUOTES.length;
     };
 
